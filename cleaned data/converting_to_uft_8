@@ -1,0 +1,9 @@
+from pathlib import Path
+import pandas as pd
+
+src = Path(r"data/raw data/2024 CDR Consumer and Commercial Use Information.csv")
+dst = Path(r"data/raw data/2024 CDR Consumer and Commercial Use Information_utf8.csv")
+
+df = pd.read_csv(src, encoding="cp1252")
+df.to_csv(dst, index=False, encoding="utf-8")
+print("Converted to UTF-8:", dst)
