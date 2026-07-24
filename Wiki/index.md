@@ -22,6 +22,7 @@
 
 ## Baseline State
 
-- Git repository initialized
+- Git repository initialized with existing history on the `main` branch
+- No Git remote configured
 - Python virtual environment present at `.venv/`
 - Root policy and wiki scaffold present

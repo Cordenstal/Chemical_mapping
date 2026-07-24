@@ -50,3 +50,9 @@
 - Generated `outputs/cas_workbook_20260710_104038/2024_CDR_CAS_Profiles.xlsx` from the raw Windows-1252 CSV.
 - Generated 8,555 worksheets: `Summary`, `Data Dictionary`, and one tab for each of 8,553 unique CAS values.
 - Added the CAS workbook artifact documentation and synchronized the wiki index.
+
+## 2026-07-24
+
+- Preserved the existing Git history and renamed the primary local branch from `master` to `main`.
+- Confirmed that no Git remote is configured.
+- Updated the repository root page and wiki baseline state to match the Git configuration.
