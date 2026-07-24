@@ -17,6 +17,8 @@
 - [Automation Status](scripts/automation-status.md)
 - [ComfyUI Custom Node Dependency Installer](scripts/install-comfyui-custom-node-deps.md)
 - [Company-Site-Chemical Workbook Builder](scripts/build-company-site-chemical-workbook.md)
+- [CAS Profile Workbook Builder](scripts/build-cas-workbook.md)
+- [2024 CDR CAS Profile Workbook](documents/cas-profile-workbook.md)
 
 ## Baseline State
 

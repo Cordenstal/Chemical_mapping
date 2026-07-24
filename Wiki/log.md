@@ -43,3 +43,10 @@
 - Added `scripts/build_company_site_chemical_workbook.py` to generate a workbook with separate company, site, chemical, and filing-fact dataframes from the cleaned CDR source CSV.
 - Added a canonical wiki page for the company-site-chemical workbook builder and synced the wiki index.
 - Generated `outputs/company_site_chemical_20260622_133515/company_site_chemical_workbook.xlsx` with the original notebook tabs plus `Company Profiles`, `Site Profiles`, `Chemical Profiles`, and `Filing Fact` sheets.
+
+## 2026-07-10
+
+- Added `scripts/build_cas_workbook.py` with timestamped progress logging for raw CDR-to-CAS workbook generation.
+- Generated `outputs/cas_workbook_20260710_104038/2024_CDR_CAS_Profiles.xlsx` from the raw Windows-1252 CSV.
+- Generated 8,555 worksheets: `Summary`, `Data Dictionary`, and one tab for each of 8,553 unique CAS values.
+- Added the CAS workbook artifact documentation and synchronized the wiki index.
