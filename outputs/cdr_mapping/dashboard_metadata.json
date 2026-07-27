@@ -1,0 +1,56 @@
+{
+  "phase": 3,
+  "phase2_input": "C:\\Users\\Gaming\\Desktop\\src\\Chemical_mapping\\Chemical_mapping\\outputs\\cdr_mapping_phase2_20260724_112508",
+  "phase2_quality": {
+    "phase": 2,
+    "phase1_input": "C:\\Users\\Gaming\\Desktop\\src\\Chemical_mapping\\Chemical_mapping\\outputs\\cdr_mapping_phase1_20260724_112422",
+    "phase1_source_row_count": 64023,
+    "phase1_source_sha256": "1db039699214c67afa24f9446a8ec11fd739767177ea3ada5bfb6a3334a71acf",
+    "facility_input_count": 15515,
+    "public_facility_count": 4279,
+    "public_record_point_count": 50056,
+    "unmapped_record_count": 13967,
+    "public_facility_feature_count": 4279,
+    "public_record_feature_count": 50056,
+    "rejection_counts": {
+      "CBI_LOCATION_WITHHELD": 10993,
+      "NULL_ISLAND_COORDINATE": 2969,
+      "MISSING_COORDINATE": 5
+    },
+    "null_island_records": 2969,
+    "malformed_record_ids": 0,
+    "coordinate_variant_facility_count": 3,
+    "state_count": 52,
+    "volume_aggregation_deferred": true,
+    "phase1_candidate_conflicting_volume_groups": 852,
+    "cbi_policy": {
+      "cbi_location_records_are_mapped": false,
+      "cbi_values_are_in_spatial_properties": false,
+      "cbi_volume_values_are_in_spatial_properties": false,
+      "cbi_volume_indicator_is_exposed": true
+    },
+    "notes": [
+      "GeoJSON contains public source-coordinate points only.",
+      "CBI location records are represented in unmapped_records.csv and rejection counts, not as points.",
+      "Numeric volume values are intentionally absent from Phase 2 spatial properties until Phase 1 grain conflicts are resolved.",
+      "FRS IDs are omitted from spatial properties because the Phase 1 CSV represents disclosed FRS values in scientific notation and none are exact-join eligible."
+    ]
+  },
+  "chemical_count_in_public_index": 7404,
+  "unmapped_record_count": 13967,
+  "cbi_location_record_count": 10993,
+  "cbi_volume_indicator_record_count": 10457,
+  "policy": {
+    "numeric_volume_values_displayed": false,
+    "cbi_values_displayed": false,
+    "cbi_location_records_mapped": false,
+    "cbi_indicators_displayed": true,
+    "source_coordinate_precision_labeled": true
+  },
+  "notes": [
+    "The dashboard uses public Phase 2 source-coordinate points only.",
+    "CBI location records are summarized by count and never assigned inferred coordinates.",
+    "Numeric production, import, export, and use values are not present in the dashboard payload.",
+    "Facility markers aggregate public records; record markers preserve source-record detail."
+  ]
+}

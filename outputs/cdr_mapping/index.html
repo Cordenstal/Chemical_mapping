@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>2024 CDR Chemical Mapping</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">2024 Chemical Data Reporting</p>
+        <h1>Chemical production and import map</h1>
+        <p class="subtitle">Public source-coordinate records with explicit CBI and precision labels.</p>
+      </div>
+      <div class="status" id="load-status">Loading map data…</div>
+    </header>
+
+    <main class="shell">
+      <aside class="sidebar" aria-label="Map controls and summary">
+        <section class="notice">
+          <strong>CBI-safe view</strong>
+          <p>CBI locations are counted but never inferred or mapped. Numeric production, import, export, and use values are intentionally not displayed.</p>
+        </section>
+
+        <section class="controls">
+          <label for="chemical-search">Chemical or CAS</label>
+          <input id="chemical-search" type="search" placeholder="Search name or CAS…" autocomplete="off" />
+          <div id="chemical-results" class="search-results" role="listbox" aria-label="Chemical search results"></div>
+
+          <label for="facility-search">Facility or city</label>
+          <input id="facility-search" type="search" placeholder="Filter visible facilities…" autocomplete="off" />
+
+          <label for="activity-filter">Activity</label>
+          <select id="activity-filter"><option value="">All reported activities</option></select>
+
+          <label class="check"><input id="records-toggle" type="checkbox" /> Show source-record points</label>
+          <label class="check"><input id="cbi-toggle" type="checkbox" /> Show records with CBI-volume indicator</label>
+          <button id="clear-selection" type="button" class="secondary">Clear chemical selection</button>
+        </section>
+
+        <section class="summary" aria-live="polite">
+          <h2 id="summary-title">All public records</h2>
+          <div class="metric-grid">
+            <div><span id="metric-facilities">—</span><small>facilities</small></div>
+            <div><span id="metric-records">—</span><small>public records</small></div>
+            <div><span id="metric-cbi-location">—</span><small>CBI locations</small></div>
+            <div><span id="metric-cbi-volume">—</span><small>CBI-volume indicators</small></div>
+          </div>
+          <p id="summary-detail" class="muted">Select a chemical to narrow the map.</p>
+        </section>
+
+        <section class="legend">
+          <h2>Map legend</h2>
+          <div><span class="swatch manufacture"></span> Manufacture</div>
+          <div><span class="swatch import"></span> Import</div>
+          <div><span class="swatch both"></span> Other or combined activity</div>
+          <div><span class="ring"></span> CBI-volume indicator</div>
+          <p class="muted">All displayed coordinates are labeled as public source coordinates. They are not FRS-enriched matches.</p>
+        </section>
+      </aside>
+
+      <section class="map-panel">
+        <div id="map" role="application" aria-label="Chemical facility map"></div>
+        <div class="map-note">Basemap: USGS National Map services. Map points represent reporting locations, not necessarily ports of entry or downstream use locations.</div>
+      </section>
+    </main>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+    <script src="dashboard_data.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
