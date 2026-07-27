@@ -1,0 +1,26 @@
+{
+  "phase": 3,
+  "source_phase2_dir": "C:\\Users\\Gaming\\Desktop\\src\\Chemical_mapping\\Chemical_mapping\\outputs\\cdr_mapping_phase2_20260724_112508",
+  "output_dir": "C:\\Users\\Gaming\\Desktop\\src\\Chemical_mapping\\Chemical_mapping\\outputs\\cdr_mapping_phase3_20260724_125130",
+  "created_at": "2026-07-24T12:51:31.704686",
+  "artifacts": [
+    "index.html",
+    "app.js",
+    "styles.css",
+    "chemical_index.json",
+    "dashboard_metadata.json",
+    "dashboard_data.js",
+    "public_facilities.geojson",
+    "public_cdr_records.geojson",
+    "state_summary.csv",
+    "unmapped_records.csv",
+    "quality_report.json",
+    "quality_report.txt"
+  ],
+  "policy": {
+    "numeric_volume_values_displayed": false,
+    "cbi_values_displayed": false,
+    "cbi_location_records_mapped": false,
+    "cbi_indicators_displayed": true
+  }
+}

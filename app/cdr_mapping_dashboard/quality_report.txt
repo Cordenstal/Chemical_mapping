@@ -1,0 +1,20 @@
+CDR mapping Phase 2 spatial-layer quality report
+=================================================
+Phase 1 facility rows: 15,515
+Public facility points: 4,279
+Public record points: 50,056
+Unmapped records: 13,967
+Coordinate-variant facilities: 3
+Null-island records rejected: 2,969
+Conflicting Phase 1 volume groups not visualized: 852
+
+Spatial rejection counts:
+  CBI_LOCATION_WITHHELD: 10,993
+  MISSING_COORDINATE: 5
+  NULL_ISLAND_COORDINATE: 2,969
+
+Interpretation:
+  Public GeoJSON points contain no numeric volume values and no CBI values.
+  CBI location records remain auditable through opaque record IDs and status flags only.
+  FRS values are not used for exact joins in this spatial build.
+  Volume symbology is deferred until duplicate-grain review is complete.
