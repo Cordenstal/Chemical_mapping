@@ -125,11 +125,18 @@ Then open <http://localhost:8000/>.
 Use explicit paths when reproducibility or reruns require a fixed input and output directory:
 
 ```text
-python scripts/build_cdr_mapping_data.py --source "data/raw data/2024 CDR Consumer and Commercial Use Information.csv" --encoding cp1252 --output-dir outputs/cdr_mapping_phase1_run
+python scripts/build_cdr_mapping_data.py \
+  --source "data/raw data/2024 CDR Consumer and Commercial Use Information.csv" \
+  --encoding cp1252 \
+  --output-dir outputs/cdr_mapping_phase1_run
 
-python scripts/build_cdr_spatial_layer.py --phase1-dir outputs/cdr_mapping_phase1_run --output-dir outputs/cdr_mapping_phase2_run
+python scripts/build_cdr_spatial_layer.py \
+  --phase1-dir outputs/cdr_mapping_phase1_run \
+  --output-dir outputs/cdr_mapping_phase2_run
 
-python scripts/build_cdr_mapping_dashboard.py --phase2-dir outputs/cdr_mapping_phase2_run --output-dir outputs/cdr_mapping_phase3_run
+python scripts/build_cdr_mapping_dashboard.py \
+  --phase2-dir outputs/cdr_mapping_phase2_run \
+  --output-dir outputs/cdr_mapping_phase3_run
 ```
 
 ## Workbook builders

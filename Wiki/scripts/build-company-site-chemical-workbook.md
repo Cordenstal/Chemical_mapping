@@ -1,0 +1,28 @@
+# Company-Site-Chemical Workbook Builder
+
+- Canonical source path: `scripts/build_company_site_chemical_workbook.py`
+- Source type: Python automation
+- Purpose: build a workbook with separate company, site, chemical, and filing-fact dataframes while retaining the original notebook tabs from the cleaned CDR source CSV.
+- Output:
+  - `outputs/company_site_chemical_YYYYMMDD_HHMMSS/company_site_chemical_workbook.xlsx`
+  - `outputs/company_site_chemical_YYYYMMDD_HHMMSS/build_manifest.json`
+- Workbook sheets:
+  - `Index`
+  - `Entity Ontology Seed`
+  - `Entity Counts`
+  - `Checklist`
+  - `Company Profiles`
+  - `Site Profiles`
+  - `Chemical Profiles`
+  - `Company Table`
+  - `Chemical Table`
+  - `Company Activity Fact`
+  - `Quantity Fact`
+  - `Physical Form Fact`
+  - `Filing Fact`
+  - `Session Log`
+  - `Source Notes`
+- Debugging notes:
+  - The script logs each sheet write and final file location with timestamps.
+  - The legacy notebook fact tables are preserved alongside the new entity splits.
+  - The filing fact is written at the source-row grain so a company filing with multiple chemicals appears once per chemical/site record.

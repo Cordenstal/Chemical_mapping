@@ -1,0 +1,11 @@
+import pandas as pd
+
+df = pd.read_csv(r"cleaned data/2024 CDR Consumer and Commercial Use Information_utf8.csv")
+
+# Remove whitespace from column names
+df.columns = df.columns.str.strip()
+
+# Remove whitespace from all text cells
+df = df.map(lambda x: x.strip() if isinstance(x, str) else x)
+
+df.to_csv(r"cleaned data/2024 CDR Consumer and Commercial Use Information_clean.csv", index=False, encoding="utf-8")
