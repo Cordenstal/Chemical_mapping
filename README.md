@@ -1,108 +1,50 @@
 # Chemical Mapping
 
-Chemical Mapping is a Python data-engineering and analytics project that transforms the EPA's 2024 Chemical Data Reporting (CDR) dataset into a structured, searchable, and visual analytical resource.
+Chemical Mapping turns the EPA's 2024 Chemical Data Reporting (CDR) CSV into normalized data, spatial outputs, and a browser-based dashboard for exploring public chemical reporting locations.
 
-The project is designed around a practical problem: regulatory reporting data is valuable but difficult to explore when chemical names, CAS numbers, company names, facility records, encodings, coordinates, and disclosure values are inconsistent. This repository builds a repeatable path from raw reporting records to reviewable analytical outputs.
-
-The result is a decision-support and data-exploration system for comparing chemical activity across chemicals, companies, facilities, states, and geographic regions. It is not an environmental risk assessment and does not infer risk, exposure, or compliance conclusions.
-
-## What the project produces
-
-- Normalized record, chemical, facility, volume-fact, and field-status tables
-- A queryable SQLite data layer with source-row provenance
-- CAS-level chemical profile workbooks
-- Company, site, chemical, filing-fact, and quantity workbooks
-- Company profile workbooks for broad organization-level review
-- Public facility and reporting-record GeoJSON layers
-- State summaries, location audits, unmapped-record extracts, and quality reports
-- A local interactive dashboard with chemical search, activity filters, clustered map views, and CBI-safe detail panels
-- JSON build manifests that record source lineage, output files, and policy decisions
-
-## Pipeline at a glance
-
-```text
-EPA 2024 CDR CSV
-        |
-        v
-Phase 1: ingest, clean, normalize, validate, and model
-        |
-        +--> CSV tables + SQLite + quality reports
-        |
-        v
-Phase 2: validate public coordinates and prepare spatial layers
-        |
-        +--> GeoJSON + spatial SQLite + state/location audits
-        |
-        v
-Phase 3: package searchable dashboard assets
-        |
-        +--> local HTML/CSS/JavaScript dashboard
-
-Parallel workbook builders
-        |
-        +--> CAS, company, site, chemical, quantity, and filing workbooks
-```
-
-## Workflow
-
-### 1. Ingest and normalize
-
-`build_cdr_mapping_data.py` reads the raw Windows-1252 CDR export and preserves the source-row key. It cleans text, normalizes chemical identifiers and names, standardizes company and facility fields, classifies disclosure values, validates coordinates, and creates preliminary facility keys from public site identity fields.
-
-The Phase 1 output includes long-form volume facts for production, imports, exports, domestic use, and on-site use fields where source values are available. Sensitive sentinel values such as CBI, NKRA, and not-applicable values are blanked in derived value fields and retained as field-level statuses rather than treated as numbers.
-
-### 2. Build analytical models and workbooks
-
-The workbook builders create practical review products from the raw or cleaned CDR extracts:
-
-- CAS profile workbooks with summary and CAS-specific worksheets
-- Company, site, chemical, activity, quantity, physical-form, and filing-fact tables
-- All-company profile workbooks for organization-level review
-- Notebook-style analytical tables with retained source-row provenance
-
-These outputs make it possible to inspect records at multiple grains instead of forcing every question into one wide source table.
-
-### 3. Prepare spatial data
-
-`build_cdr_spatial_layer.py` converts eligible public coordinates into facility-level and source-record-level GeoJSON. It also generates location audits, unmapped-record extracts, state summaries, a spatial SQLite index, and machine-readable and human-readable quality reports.
-
-The spatial stage rejects missing, invalid, and `(0, 0)` null-island coordinates. CBI locations are summarized as indicators but are not inferred or plotted.
-
-### 4. Package the dashboard
-
-`build_cdr_mapping_dashboard.py` packages the latest Phase 2 artifacts into a portable local dashboard. The dashboard supports chemical/CAS search, facility and activity filters, clustered facility and source-record views, activity-based marker classification, source-row detail, and selectable USGS basemaps.
-
-The package includes an embedded data fallback so `index.html` can be opened directly, although a local HTTP server is recommended for larger browser sessions.
-
-### 5. Validate and review
-
-Every major build emits progress logging, a `build_manifest.json`, and quality findings. The pipeline identifies incomplete, unmapped, conflicting, and candidate duplicate records for review rather than silently dropping or collapsing them.
+The dashboard is a local, file-based application. There is no application server in this repository, and no local HTTP server is required to open it.
 
 ## Repository layout
 
 ```text
-data/raw data/       Raw EPA CDR source CSV
-cleaned data/        Encoding-cleaned and working CSV extracts
-scripts/             Python pipeline and workbook builders
-outputs/             Generated workbooks, data layers, reports, and dashboard packages
-app/                 Dashboard source assets
-images/              Workbook screenshots and visual references
-Wiki/                Project documentation, schemas, and build notes
-jupyter notebook 1.ipynb
-                     Cleaning and normalization practice notebook
+data/raw data/                  Original EPA CDR CSV
+cleaned data/                   Encoding-cleaned and working CSV files
+scripts/                        Three CDR mapping pipeline scripts
+app/cdr_mapping_dashboard/     Dashboard source and checked-in data assets
+outputs/                        Generated workbooks, dashboard artifacts, and reports
+images/                         Workbook screenshots and visual references
+Wiki/                           Project documentation and change history
+jupyter notebook 1.ipynb        CDR cleaning and normalization practice notebook
 ```
 
-## Requirements
+The active scripts are:
 
-- Python 3.10 or newer
-- A browser for the dashboard
-- Network access from the browser if loading external Leaflet, MarkerCluster, and USGS basemap assets
+- `scripts/build_cdr_mapping_data.py` — reads the raw CDR CSV, normalizes records, preserves `source_row_id`, classifies disclosure values, validates coordinates, and writes CSV/SQLite data plus quality reports.
+- `scripts/build_cdr_spatial_layer.py` — converts eligible public coordinates into facility and source-record GeoJSON, state summaries, unmapped-record extracts, a SQLite spatial layer, and quality reports.
+- `scripts/build_cdr_mapping_dashboard.py` — packages the spatial-layer artifacts with the dashboard files and builds the chemical search index and embedded data fallback.
 
-The pipeline scripts use the Python standard library for CSV, JSON, SQLite, ZIP/XML workbook generation, filesystem, and command-line work. No `requirements.txt` is currently needed for the committed scripts.
+The repository also contains previously generated workbook artifacts in `outputs/`. Their historical builder scripts are not part of the current `scripts/` directory.
 
-## Quick start
+## Open the dashboard
 
-From the repository root:
+Double-click [`app/cdr_mapping_dashboard/index.html`](app/cdr_mapping_dashboard/index.html).
+
+The dashboard loads its checked-in data assets directly from the same folder. `dashboard_data.js` provides an embedded fallback so the page can be opened from the filesystem without starting a server. The generated copy at [`outputs/cdr_mapping/index.html`](outputs/cdr_mapping/index.html) can be opened the same way.
+
+The page loads Leaflet, MarkerCluster, and USGS basemap assets from external URLs. An internet connection is therefore needed for the map libraries and basemap; the dashboard's packaged data remains local.
+
+The dashboard provides:
+
+- Chemical and CAS-name search
+- Facility and city filtering
+- Activity filtering
+- Facility markers and optional source-record points
+- CBI-volume indicators without exposing numeric confidential values
+- Public-coordinate precision labels and quality summaries
+
+## Run the mapping pipeline
+
+From the repository root, run the scripts in order:
 
 ```text
 python scripts/build_cdr_mapping_data.py
@@ -110,19 +52,7 @@ python scripts/build_cdr_spatial_layer.py
 python scripts/build_cdr_mapping_dashboard.py
 ```
 
-The scripts automatically discover the latest prior phase output and create timestamped directories under `outputs/`.
-
-To run the dashboard, serve the generated Phase 3 directory locally:
-
-```text
-python -m http.server 8000 --directory outputs/cdr_mapping_phase3_YYYYMMDD_HHMMSS
-```
-
-Then open <http://localhost:8000/>.
-
-### Explicit phase paths
-
-Use explicit paths when reproducibility or reruns require a fixed input and output directory:
+The scripts write timestamped phase directories under `outputs/` and automatically discover the latest prior phase when an input directory is not supplied. Use explicit paths when a repeatable run needs fixed inputs and outputs:
 
 ```text
 python scripts/build_cdr_mapping_data.py \
@@ -139,52 +69,27 @@ python scripts/build_cdr_mapping_dashboard.py \
   --output-dir outputs/cdr_mapping_phase3_run
 ```
 
-## Workbook builders
+Each build emits progress messages, a `build_manifest.json`, and quality findings. The dashboard build copies the HTML, JavaScript, CSS, GeoJSON, search index, metadata, summaries, and quality reports into its output directory.
 
-These scripts run independently from the mapping phases and write timestamped workbooks under `outputs/`:
+## Data handling and limitations
 
-```text
-python scripts/build_cas_workbook.py
-python scripts/build_all_companies_workbook.py
-python scripts/build_company_site_chemical_workbook.py
-python scripts/build_cdr_workbook.py
-```
+- `source_row_id` preserves the link from normalized records back to the input CSV row.
+- CBI values are represented as statuses or indicators rather than exposed numeric values.
+- CBI location records are not inferred or plotted.
+- The dashboard uses public source coordinates and labels their precision; it does not claim FRS-enriched facility matching.
+- Numeric production, import, export, and use values are not displayed in the dashboard.
+- Quality reports and unmapped-record extracts are retained for review instead of silently dropping problematic rows.
 
-The corresponding workbook documentation is available in [`Wiki/index.md`](Wiki/index.md), including the expected sheet structure and source grain for each builder.
+These outputs are transformed reporting data and exploration aids. They are not environmental risk assessments, exposure estimates, compliance determinations, or substitutes for source-document review.
 
-## Data quality and interpretation
+## Requirements
 
-This project treats data quality as part of the product, not as a final afterthought.
+- Python 3.10 or newer for the pipeline scripts
+- A browser for the dashboard
+- Internet access for the dashboard's external map libraries and basemap services
 
-- `source_row_id` preserves a link back to the input record.
-- Required headers, row counts, extra columns, coordinate validity, disclosure statuses, and candidate duplicate groups are checked.
-- FRS values represented in scientific notation are retained as disclosed text and are not treated as exact join keys without independent verification.
-- Candidate duplicate groups are reported but not automatically deduplicated. This protects against incorrectly aggregating distinct reporting facts.
-- The spatial layers contain public coordinates and CBI-safe indicators, not inferred facility locations.
-- The dashboard does not display numeric production, import, export, or use values. Numeric map symbology remains deferred until duplicate-grain review is complete.
-
-For detailed findings, inspect the `quality_report.txt`, `quality_report.json`, `unmapped_records.csv`, `location_audit.csv`, and `build_manifest.json` files in each generated output directory.
-
-## Technical skills demonstrated
-
-- Python data processing and repeatable ETL workflows
-- Text, encoding, identifier, and entity normalization
-- Chemical/CAS, company, facility, and site modeling
-- Analytical aggregation and long-form fact-table design
-- Excel workbook generation and validation
-- SQLite data packaging and queryable local artifacts
-- GeoJSON and geospatial data preparation
-- Interactive dashboard development with HTML, CSS, and JavaScript
-- Data-quality profiling, provenance, audit reporting, and review workflows
-
-## Scope and responsible use
-
-The outputs are intended to make CDR reporting data easier to explore, compare, validate, and use in downstream analysis. They should be interpreted as transformed reporting data and analytical aids. They are not a substitute for source-document review, verified facility resolution, regulatory interpretation, environmental risk assessment, or exposure analysis.
+The current repository does not include a `requirements.txt`; the three mapping scripts are built around Python's standard library.
 
 ## Documentation
 
-The [`Wiki/`](Wiki/) directory is the repository's detailed knowledge base. Start with [`Wiki/index.md`](Wiki/index.md) for the catalog of pipeline phases, schemas, source notes, workbook builders, and project history.
-
-## Takeaway
-
-Chemical Mapping turns a difficult regulatory CSV into a traceable set of analytical tables, workbooks, spatial layers, quality reports, and an interactive map—showing how careful data engineering can make complex information more usable for real decisions.
+The [`Wiki/`](Wiki/) directory contains the detailed project notes, schema documentation, source records, script pages, and append-only change log. Start with [`Wiki/index.md`](Wiki/index.md).

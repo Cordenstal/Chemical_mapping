@@ -83,3 +83,5 @@
 - Confirmed the retained output families are `all_companies_20260622_132445`, `cas_workbook_20260710_104038`, `cdr_workbook_20260622_123812`, `company_site_chemical_20260622_133515`, and `cdr_mapping`.
 - Replaced the baseline root README with a professional Chemical Mapping project overview covering the end-to-end pipeline, setup commands, generated outputs, data-quality controls, CBI-safe handling, and responsible-use limitations.
 - Synchronized the README source page, repository snapshot, repository-root page, and wiki current-state summary.
+- Corrected the README and dashboard wiki pages to match the current checkout: three active mapping scripts, checked-in dashboard assets, retained generated outputs, and direct `index.html` launch without a local server.
+- Removed stale documentation claims that workbook-builder scripts are present in `scripts/` and that the dashboard must be served over HTTP.

@@ -6,6 +6,8 @@
 - Key points:
   - `README.md` is the public entry point for the Chemical Mapping data-engineering and analytics portfolio project.
   - The root contains `data/`, `cleaned data/`, `scripts/`, `outputs/`, `app/`, `images/`, `Wiki/`, and the cleaning notebook.
+  - The active `scripts/` directory contains only the CDR mapping data, spatial-layer, and dashboard builders.
+  - The dashboard can be launched by double-clicking `app/cdr_mapping_dashboard/index.html`; no application server is required.
   - Git history was preserved and the primary local branch is `main`.
   - No Git remote is currently configured.
   - Future source pages should be added as actual files appear.

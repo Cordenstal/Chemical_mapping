@@ -20,7 +20,7 @@ The builder logs input discovery, record indexing every 10,000 features, output 
 
 ## Output
 
-The generated `outputs/cdr_mapping_phase3_*/` package contains:
+The checked-in dashboard package under `app/cdr_mapping_dashboard/` and the generated copy under `outputs/cdr_mapping/` contain:
 
 - `index.html`, `app.js`, and `styles.css`: local dashboard application.
 - `dashboard_data.js`: embedded direct-open fallback for browsers that block `fetch()` from `file://` pages.
@@ -30,13 +30,13 @@ The generated `outputs/cdr_mapping_phase3_*/` package contains:
 - State, unmapped-record, and quality-report artifacts.
 - `build_manifest.json`: package lineage and policy.
 
-Serve the output directory with a local HTTP server for the preferred browser mode:
+Open the dashboard directly from the filesystem:
 
 ```text
-python -m http.server 8000 --directory outputs/cdr_mapping_phase3_YYYYMMDD_HHMMSS
+app/cdr_mapping_dashboard/index.html
 ```
 
-Then open `http://localhost:8000/`.
+Double-click `index.html` in either dashboard directory. No local HTTP server is required because `dashboard_data.js` embeds the data needed for direct opening.
 
 ## CBI and volume policy
 

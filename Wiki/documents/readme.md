@@ -4,9 +4,10 @@
 - Source type: repository document
 - Why it matters: provides the public entry point for the Chemical Mapping data-engineering and analytics project.
 - Key points:
-  - The repository transforms the EPA 2024 CDR CSV into normalized analytical tables, workbooks, spatial layers, quality reports, and a local dashboard.
-  - The README documents the Phase 1 ingestion and normalization layer, Phase 2 spatial layer, Phase 3 dashboard package, and parallel workbook builders.
-  - Data-quality controls, CBI-safe handling, source-row provenance, and current analytical limitations are part of the documented project scope.
+  - The repository contains three active CDR mapping scripts, a file-based dashboard under `app/cdr_mapping_dashboard/`, and retained generated artifacts under `outputs/`.
+  - The dashboard is opened by double-clicking `app/cdr_mapping_dashboard/index.html`; no application server or local HTTP server is required.
+  - The README documents the three sequential mapping stages, direct dashboard launch, generated output layout, CBI-safe handling, source-row provenance, and current analytical limitations.
+  - Previously generated workbook artifacts remain in `outputs/`, but their historical builder scripts are not present in the current `scripts/` directory.
   - The wiki remains the detailed source of truth for individual scripts, schemas, outputs, and project history.
 - Update triggers:
   - Repository scope changes.

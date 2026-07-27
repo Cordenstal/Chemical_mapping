@@ -6,7 +6,8 @@ Phase 3 turns the validated Phase 2 spatial layer into a portable, local interac
 
 ## Current build
 
-- Output: `outputs/cdr_mapping_phase3_20260724_120039/`
+- Source dashboard: `app/cdr_mapping_dashboard/`
+- Checked-in generated dashboard: `outputs/cdr_mapping/`
 - Public chemicals indexed: 7,404
 - Source-record points available: 50,056
 - Facility points available: 4,279
@@ -23,7 +24,7 @@ Phase 3 turns the validated Phase 2 spatial layer into a portable, local interac
 - Shows facility and record details with source row IDs and location precision.
 - Uses USGS Topo and USGS Imagery National Map services as selectable basemaps.
 - Uses clustering for national-scale navigation.
-- Supports direct opening of `index.html` through an embedded local data payload; a local HTTP server is still recommended for larger browser sessions.
+- Supports direct opening of `index.html` through an embedded local data payload; no local HTTP server is required.
 
 ## Trust and limitations
 
@@ -31,8 +32,4 @@ The default map uses public Phase 2 source coordinates. The dashboard labels the
 
 ## Run locally
 
-```text
-python -m http.server 8000 --directory outputs/cdr_mapping_phase3_20260724_120039
-```
-
-Open `http://localhost:8000/`. The browser needs network access to load Leaflet, MarkerCluster, and USGS basemap tiles from their public services.
+Double-click `app/cdr_mapping_dashboard/index.html` (or `outputs/cdr_mapping/index.html`). The browser needs network access to load Leaflet, MarkerCluster, and USGS basemap tiles from their public services.
