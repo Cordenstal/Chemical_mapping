@@ -93,3 +93,8 @@ The current repository does not include a `requirements.txt`; the three mapping 
 ## Documentation
 
 The [`Wiki/`](Wiki/) directory contains the detailed project notes, schema documentation, source records, script pages, and append-only change log. Start with [`Wiki/index.md`](Wiki/index.md).
+
+
+Copyright © 2026 William Redmond. All rights reserved.
+Permission is granted to view and review this source code and to run it solely for personal, educational, or internal evaluation purposes.
+Commercial use, business use, publication, redistribution, sublicensing, modification, derivative works, and production deployment are prohibited without prior written permission.
